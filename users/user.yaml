@@ -1,0 +1,189 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  version: "1.0.0"
+  title: "Swagger Petstore"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+basePath: "/v2"
+tags:
+- name: "user"
+  description: "Operations about user"
+  externalDocs:
+    description: "Find out more about our store"
+    url: "http://swagger.io"
+schemes:
+- "https"
+- "http"
+paths:
+  /user:
+    post:
+      tags:
+      - "user"
+      summary: "Создать пользователя"
+      description: "This can only be done by the logged in user."
+      operationId: "createUser"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Создает объект пользователя. "
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        default:
+          description: "завершено успешно"
+  /user/login:
+    get:
+      tags:
+      - "user"
+      summary: "Вход пользователя в систему"
+      description: ""
+      operationId: "loginUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "query"
+        description: "Имя чтобы логиниться"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "Пароль чтобы логиниться"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Операция успешно завершилась"
+          schema:
+            type: "string"
+          headers:
+            X-Rate-Limit:
+              type: "integer"
+              format: "int32"
+              description: "calls per hour allowed by the user"
+            X-Expires-After:
+              type: "string"
+              format: "date-time"
+              description: "date in UTC when token expires"
+        "400":
+          description: "Неправильный логин или пароль"
+  /user/logout:
+    get:
+      tags:
+      - "user"
+      summary: "Выход из аккаунта"
+      description: ""
+      operationId: "logoutUser"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        default:
+          description: "Операция успешно завершилась"
+  /user/{username}:
+    get:
+      tags:
+      - "user"
+      summary: "получение пользователя по имени"
+      description: "Осуществимо только залогиненым пользователем."
+      operationId: "getUserByName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "Имя пользователя. Используйте user1 для тестов. "
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Операция успешно завершилась"
+          schema:
+            $ref: "#/definitions/User"
+        "400":
+          description: "Неверное имя пользователя"
+        "404":
+          description: "Пользователь не найден"
+    put:
+      tags:
+      - "user"
+      summary: "Изменить пользователя"
+      description: "Осуществимо только залогиненым пользователем."
+      operationId: "updateUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "Имя, которое должно быть обновлено. "
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Обновление объекта пользователя. "
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "400":
+          description: "Неверное мимя пользователя"
+        "404":
+          description: "Пользователь не найден"
+    delete:
+      tags:
+      - "user"
+      summary: "Удаление пользователя"
+      description: "Осуществимо только залогиненым пользователем."
+      operationId: "deleteUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "Имя, по которому нужно удалить пользователя. "
+        required: true
+        type: "string"
+      responses:
+        "400":
+          description: "Неправильное имя пользователя. "
+        "404":
+          description: "Пользователь не найден. "
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+    xml:
+      name: "User"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
