@@ -1,54 +1,54 @@
-    openapi: 3.0.0
-    info:
-      title: Notifier
-      description: Сервис уведомлений.
-      version: 0.0.1
-    servers:
-      - url: http://notifier/v1
-    paths:
-      /notify:
-        post:
-          summary: Послать уведомление.
-          description: Послать пользователю уведомление о том, что курс валют изменился.
-          
-          requestBody:
-            description: Пользователь и отправляемое сообщение
-            required: true
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    user_id:
-                      type: integer
-                      format: int64
-                      description: ID пользователя
-                    message:
-                      $ref: '#/components/schemas/Message'
-          responses:
-            '201':    # status code
-              description: Успешно отправлено
+openapi: 3.0.0
+info:
+  title: Notifier
+  description: Сервис уведомлений.
+  version: 0.0.1
+servers:
+  - url: http://notifier/v1
+paths:
+  /notify:
+    post:
+      summary: Послать уведомление.
+      description: Послать пользователю уведомление о том, что курс валют изменился.
 
-    components:
-      schemas:
-        Message:
-          type: object
-          description: Данные, содержащиеся в сообщении
-          properties:
-            event:
-              type: string
-              example: up
-            watch:
-              type: number
-              format: float
-              example: 1.05
-            value:
-              type: number
-              format: float
-              example: 1.07
-            time:
-              type: string
-              format: date-time
-            currency:
-              type: string
-              example: rub
+      requestBody:
+        description: Пользователь и отправляемое сообщение
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  format: int64
+                  description: ID пользователя
+                message:
+                  $ref: "#/components/schemas/Message"
+      responses:
+        "201": # status code
+          description: Успешно отправлено
+
+components:
+  schemas:
+    Message:
+      type: object
+      description: Данные, содержащиеся в сообщении
+      properties:
+        event:
+          type: string
+          example: up
+        watch:
+          type: number
+          format: float
+          example: 1.05
+        value:
+          type: number
+          format: float
+          example: 1.07
+        time:
+          type: string
+          format: date-time
+        currency:
+          type: string
+          example: rub
