@@ -20,8 +20,76 @@ paths:
               $ref: "#/components/schemas/Value"
 
       responses:
-        "201":
+        201:
           description: Успешно добавлено
+  /watch:
+    post:
+      summary: Добавить наблюдателя
+      description: Добавление наблюдателя событий для пользователя
+      
+      requestBody:
+        description: Параметры наблюдателя
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Watcher'
+      responses:
+        201:
+          description: Успешно создано
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+                description: ID созданного наблюдателя
+        400:
+          description: Не удалось создать
+    get:
+      summary: Получить список наблюдателей
+      description: Получить список наблюдателей
+      
+      parameters:
+        - in: query
+          name: user_id
+          required: false
+          schema:
+            type: integer
+          description: Наблюдатели пользователя
+
+      responses:
+        201:
+          description: Успешно создано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Watcher'
+        404:
+          description: Наблюдатели для пользователя не найдены
+
+  /watch/{id}:
+    get:
+      summary: Наблюдатель.
+      description: Получить информацию о наблюдателе.
+      
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID наблюдателя
+
+      responses:
+        200:
+          description: Значение передано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Watcher'
+        404:
+          description: Наблюдатель не найден
 
 components:
   schemas:
@@ -40,4 +108,27 @@ components:
         currency:
           type: string
           description: Валюта
+          example: rub
+    Watcher:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID наблюдателя
+        user_id:
+          type: integer
+          format: int64
+          description: ID пользователя
+        event:
+          type: string
+          description: Отслеживаемое событие
+          example: up
+        watch:
+          type: number
+          format: float
+          description: Пороговая величина
+        currency:
+          type: string
+          description: Отслеживаемая валюта
           example: rub
