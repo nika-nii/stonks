@@ -1,0 +1,64 @@
+    openapi: 3.0.0
+    info:
+      title: Storage
+      description: Данные о курсах валют в виде временных рядов
+      version: 0.0.1
+    servers:
+      - url: http://storage/v1
+        description: Сервис
+    paths:
+      /range/{currency}:
+        get:
+          summary: Ряд значений.
+          description: Ряд значений валютного курса за указанный период.
+          parameters:
+            - name: currency
+              in: path
+              description: Валюта
+              required: true
+              schema:
+                type: string
+                example: "rub"
+          responses:
+            '200':    # status code
+              description: Ряд значений курса
+              content:
+                application/json:
+                  schema: 
+                    type: array
+                    items: 
+                      $ref: "#/components/schemas/TimeValue"
+      /currencies:
+        get:
+          summary: Список валют.
+          description: Список всех валют, доступных в сервисе.
+          responses:
+            '200':
+              description: Список валют
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Currency'
+                  example:
+                    - rub
+                    - usd
+                    - uah
+          
+    components:
+      schemas:
+        TimeValue:
+          type: object
+          properties:
+            time:
+              type: string
+              format: date-time
+              description: Время получения значения
+            value:
+              type: number
+              format: float
+              description: Значение
+              example: 1.54
+        Currency:
+          type: string
