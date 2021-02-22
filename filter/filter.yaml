@@ -1,43 +1,43 @@
-    openapi: 3.0.0
-    info:
-      title: Filter
-      description: Обработчик данных
-      version: 0.0.1
-    servers:
-      - url: http://filter/v1
-    paths:
-      /add:
-        post:
-          summary: Передать значение.
-          description: Передать в фильтр новое значение на обработку.
+openapi: 3.0.0
+info:
+  title: Filter
+  description: Обработчик данных
+  version: 0.0.1
+servers:
+  - url: http://filter/v1
+paths:
+  /add:
+    post:
+      summary: Передать значение.
+      description: Передать в фильтр новое значение на обработку.
 
-          requestBody:
-            description: Значение курса на данный момент
-            required: true
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/Value'
+      requestBody:
+        description: Значение курса на данный момент
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Value"
 
-          responses:
-            '201':
-              description: Успешно добавлено
-          
-    components:
-      schemas:
-        Value:
-          type: object
-          properties:
-            time:
-              type: string
-              format: date-time
-              description: Время получения значения
-            value:
-              type: number
-              format: float
-              description: Значение
-              example: 1.54
-            currency:
-              type: string
-              description: Валюта
-              example: rub
+      responses:
+        "201":
+          description: Успешно добавлено
+
+components:
+  schemas:
+    Value:
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: Время получения значения
+        value:
+          type: number
+          format: float
+          description: Значение
+          example: 1.54
+        currency:
+          type: string
+          description: Валюта
+          example: rub
