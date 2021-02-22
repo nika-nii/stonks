@@ -1,66 +1,43 @@
-swagger: "2.0"
-info:
-  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
-  version: "1.0.0"
-  title: "Swagger Petstore"
-  termsOfService: "http://swagger.io/terms/"
-  contact:
-    email: "apiteam@swagger.io"
-  license:
-    name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "petstore.swagger.io"
-basePath: "/v2"
-tags:
-- name: "filter"
-  description: "Operations about user"
-  externalDocs:
-    description: "Find out more about our store"
-    url: "http://swagger.io"
-schemes:
-- "https"
-- "http"
-paths:
-  /filter/sendData:
-    post:
-      tags:
-      - "filter"
-      summary: "Посылает в сервис notify данные для уведомлений. "
-      description: "Посылает в сервис notify данные для уведомлений. "
-      operationId: "sendData"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "Посылает в сервис notify данные для уведомлений. "
-        required: true
-        schema:
-          $ref: "#/definitions/Filter"
-      responses:
-        default:
-          description: "завершено успешно"
-securityDefinitions:
-  api_key:
-    type: "apiKey"
-    name: "api_key"
-    in: "header"
-definitions:
-  Filter:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      currency:
-        type: "string"
-      value:
-        type: "integer"
-        format: "int64"
-      event:
-        type: "string"
-    xml:
-      name: "User"
-externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
+    openapi: 3.0.0
+    info:
+      title: Filter
+      description: Обработчик данных
+      version: 0.0.1
+    servers:
+      - url: http://filter/v1
+    paths:
+      /add:
+        post:
+          summary: Передать значение.
+          description: Передать в фильтр новое значение на обработку.
+
+          requestBody:
+            description: Значение курса на данный момент
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Value'
+
+          responses:
+            '201':
+              description: Успешно добавлено
+          
+    components:
+      schemas:
+        Value:
+          type: object
+          properties:
+            time:
+              type: string
+              format: date-time
+              description: Время получения значения
+            value:
+              type: number
+              format: float
+              description: Значение
+              example: 1.54
+            currency:
+              type: string
+              description: Валюта
+              example: rub
