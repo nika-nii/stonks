@@ -10,9 +10,9 @@ paths:
     post:
       summary: Создать пользователя
       description: Создание нового пользователя
-      
+
       requestBody:
-        description: "Пользователь"
+        description: Пользователь
         required: true
         content:
           application/json:
@@ -23,15 +23,15 @@ paths:
           description: Пользователь создан
         403:
           description: Не удалось создать пользователя
-  
+
   /user/{id}:
     get:
       summary: Получение данных пользователя.
       description: Получение подробной информации о пользователе по его идентификатору.
       parameters:
         - name: id
-          in: "path"
-          description: "ID пользователя"
+          in: path
+          description: ID пользователя
           required: true
           schema:
             type: integer
@@ -48,10 +48,10 @@ paths:
           description: Пользователь не найден
   /login:
     post:
-      summary: "Вход в систему"
-      description: "Аутентификация пользователя"
+      summary: Вход в систему"
+      description: Аутентификация пользователя
       requestBody:
-        description: "Учетные данные пользователя"
+        description: Учетные данные пользователя
         required: true
         content:
           application/json:
@@ -78,18 +78,18 @@ paths:
 components:
   schemas:
     User:
-      type: "object"
+      type: object
       properties:
         id:
-          type: "integer"
-          format: "int64"
+          type: integer
+          format: int64
         username:
-          type: "string"
+          type: string
         firstName:
-          type: "string"
+          type: string
         lastName:
-          type: "string"
+          type: string
         email:
-          type: "string"
+          type: string
         password:
-          type: "string"
+          type: string
