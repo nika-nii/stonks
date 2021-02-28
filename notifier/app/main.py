@@ -4,6 +4,9 @@ import datetime
 
 from email_notifier import EmailFactory
 
+from dotenv import load_dotenv
+load_dotenv()
+
 factory = EmailFactory()
 
 user_getter = factory.user_getter

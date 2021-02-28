@@ -25,10 +25,6 @@ class EmailSender(Sender):
     def __init__(self, address):
         super().__init__(address)
 
-        # todo: сделать с этим что-нибудь
-        from dotenv import load_dotenv
-        load_dotenv()
-
         self._host = os.environ.get('EMAIL_HOST')
         self._port = os.environ.get('EMAIL_PORT')
         self._my_address = os.environ.get('EMAIL_ADDRESS')
