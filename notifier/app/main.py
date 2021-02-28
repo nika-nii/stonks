@@ -29,8 +29,6 @@ app = FastAPI()
 
 @app.post("/notify")
 async def create_notification(notification: Notification):
-    print(f'We received notification with data {notification}')
-
     user_data = user_getter(notification.user_id)
     address = user_data.get_address()
     name = user_data.get_name()

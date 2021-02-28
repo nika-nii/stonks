@@ -16,7 +16,6 @@ class UserGetter:
     def get_address(self):
         if self._user is None:
             self.get_data()
-        pass
 
     def get_name(self):
         if self._user is None:
