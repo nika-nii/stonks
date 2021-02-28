@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from database.database import engine
+from database import models
 import datetime
 
 class Message(BaseModel):
@@ -17,6 +19,7 @@ class Observer(BaseModel):
 
 app = FastAPI()
 
+models.Base.metadata.create_all(bind=engine)
 
 @app.post("/add")
 async def send_value(message: Message):
