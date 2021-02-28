@@ -13,11 +13,9 @@ class EmailUserGetter(UserGetter):
 
     def __init__(self, id):
         super().__init__(id)
-        print("EUG")
 
     def get_address(self):
         super().get_address()
-        print(self._user)
         return self._user['email']
 
 
@@ -40,7 +38,6 @@ class EmailSender(Sender):
 
         frm = self._my_address
         to = self._address
-        print(frm, to)
         subject = "Уведомление об изменении курса"
         host = self._host
         port = self._port
