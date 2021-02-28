@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb927054-95a6-435f-8b1a-4807306caf07" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/filter/app/database/database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/filter/app/database/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter/app/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filter/app/database/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter/app/database/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filter/app/database/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter/app/database/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/filter/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter/app/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,5 +48,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
