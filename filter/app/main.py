@@ -1,5 +1,7 @@
 import datetime
+import json
 
+import requests
 from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -37,8 +39,22 @@ models.Base.metadata.create_all(bind=engine)
 
 
 @app.post("/add")
-async def send_value(message: Message):
-    return message
+async def send_value(message: Message, db: Session = Depends(get_db)):
+    db = crud.get_triggered_observers(db, message.value, message.currency)
+    for observer in db:
+        notification = {
+            "user_id": observer.user_id,
+            "message": {
+                "event": observer.event,
+                "watch": observer.watch,
+                "value": message.value,
+                "time": message.time,
+                "currency": message.currency
+            }
+        }
+        r = requests.post('http://localhost:80/notify', data=json.dumps(notification, default=str))
+        print(r)
+    return "OK"
 
 
 @app.post("/watch")
