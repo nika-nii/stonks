@@ -1,8 +1,14 @@
-from django.contrib.auth.models import User
+from .models import CustomUser
 from rest_framework import serializers
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class WriteUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = User
-        fields = ['username', 'firstName', 'lastName', 'email', 'password']
+        model = CustomUser
+        fields = ['username', 'first_name', 'last_name', 'email', 'password']
+
+
+class ReadUserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'first_name', 'last_name', 'email']
