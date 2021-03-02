@@ -42,9 +42,9 @@ async def send_value(message: Message):
 
 
 @app.post("/watch")
-async def add_observer(observer: Observer):
-    
-    return observer
+async def add_observer(observer: Observer, db: Session = Depends(get_db)):
+    db = crud.create_observer(db, observer)
+    return db
 
 
 @app.get("/watch")
