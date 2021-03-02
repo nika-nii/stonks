@@ -1,8 +1,8 @@
 from fastapi import FastAPI, requests, Depends, HTTPException
 from pydantic import BaseModel
 from database.database import engine, SessionLocal
-from database import models, crud
 from sqlalchemy.orm import Session
+from database import crud, models
 from database.models import Observers
 import datetime
 
@@ -46,7 +46,7 @@ async def add_observer(observer: Observer):
 
 
 @app.get("/watch")
-async def get_observers_list(db: Session = Depends(get_db())):
+async def get_observers_list(db: Session = Depends(get_db)):
     #должна быть подключена БД, должны возвращаться данные из нее
     db = crud.get_observers(db)
     if db is None:
