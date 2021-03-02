@@ -4,7 +4,7 @@ from . import models
 from . import schemas
 
 
-def get_observer(db: Session, user_id: int):
+def get_observer_for_user(db: Session, user_id: int):
     return db.query(models.Observers).filter(models.Observers.id == user_id).first()
 
 
