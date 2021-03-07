@@ -1,1 +1,3 @@
-FOREIGN_API=http://localhost:80/storage
+FOREIGN_API=
+PERIOD_SECS=
+STORAGE_API=
