@@ -1,0 +1,25 @@
+services:
+  influxdb:
+    image: influxdb:latest
+    healthcheck:
+      test: "curl -f http://localhost:8086/ping"
+      interval: 3s
+      timeout: 10s
+      retries: 5
+    ports:
+      - 8086:8086
+    volumes:
+      - influxdb:/var/lib/influxdb2
+    env_file: .env
+
+  storage:
+    build: storage
+    depends_on:
+      influxdb:
+        condition: service_healthy
+    env_file: .env
+    ports:
+      - 80:80
+
+volumes:
+  influxdb:
