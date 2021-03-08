@@ -43,6 +43,7 @@ async def add_value(value: Value):
     write_api.write(bucket=bucket, record=data)
     return value
 
+
 @app.get("/range/{currency}")
 async def get_range(
     currency, 
@@ -68,6 +69,32 @@ async def get_range(
             results.append({"time": record.get_time(), "value": record.get_value()})
     return results
 
+
 @app.get("/currencies")
 async def get_currencies():
-    return "To be implemented"
+    query = '''import "influxdata/influxdb/schema"
+               schema.measurementTagValues(bucket: "test", measurement: "exchange", tag: "currency")'''
+    tables = query_api.query(query)
+
+    results = []
+    for table in tables:
+        for record in table.records:
+            results.append(record.get_value())
+    return results
+
+
+@app.get("/latest/{currency}")
+async def get_latest(currency):
+    query = f'''from(bucket: "{bucket}")
+                        |> range(start: -1d)
+                        |> filter(fn: (r) => r["currency"] == "{currency}")
+                        |> filter(fn: (r) => r["_measurement"] == "exchange") 
+                        |> filter(fn: (r) => r["_field"] == "value")
+                        |> limit(n:1)'''
+    tables = query_api.query(query)
+
+    results = []
+    for table in tables:
+        for record in table.records:
+            results.append({"time": record.get_time(), "value": record.get_value()})
+    return results
