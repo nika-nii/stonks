@@ -7,6 +7,24 @@ servers:
   - url: http://storage/v1
     description: Сервис
 paths:
+  /add:
+    post:
+      summary: Добавить значение.
+      description: Добавить новое значение.
+
+      requestBody:
+        description: Значение курса на данный момент
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Value"
+
+      responses:
+        201:
+          description: Успешно добавлено
+
+
   /range/{currency}:
     get:
       summary: Ряд значений.
@@ -48,6 +66,22 @@ paths:
 
 components:
   schemas:
+    Value:
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: Время получения значения
+        value:
+          type: number
+          format: float
+          description: Значение
+          example: 1.54
+        currency:
+          type: string
+          description: Валюта
+          example: rub
     TimeValue:
       type: object
       properties:
