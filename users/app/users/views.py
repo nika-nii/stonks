@@ -3,6 +3,7 @@ from .models import CustomUser
 from rest_framework import viewsets
 from rest_framework import permissions
 from .serializers import ReadUserSerializer, WriteUserSerializer
+from django.core.exceptions import PermissionDenied
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -18,3 +19,10 @@ class UserViewSet(viewsets.ModelViewSet):
             return ReadUserSerializer
 
     permission_classes = [permissions.AllowAny]
+
+
+def get_user_id(request):
+    if request.user.is_authenticated():
+        return request.user.id
+    else:
+        raise PermissionDenied()
