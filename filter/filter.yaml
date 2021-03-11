@@ -6,22 +6,6 @@ info:
 servers:
   - url: http://filter/v1
 paths:
-  /add:
-    post:
-      summary: Передать значение.
-      description: Передать в фильтр новое значение на обработку.
-
-      requestBody:
-        description: Значение курса на данный момент
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Value"
-
-      responses:
-        201:
-          description: Успешно добавлено
   /watch:
     post:
       summary: Добавить наблюдателя
