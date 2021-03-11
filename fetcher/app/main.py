@@ -1,6 +1,7 @@
 import datetime
 import json
 import os
+import time
 
 import schedule
 
@@ -14,7 +15,7 @@ period = int(os.getenv('PERIOD_SECS'))
 
 def get_data_from_api():
     print("I'm working...")
-    r = requests.get(FOREIGN_API)
+    r = requests.get('FOREIGN_API')
     data = r.json()
     rates = data['rates']
     date = datetime.strptime(rates['date'], "%Y-%m-%d")
@@ -25,8 +26,12 @@ def get_data_from_api():
             "time": date
         }
         requests.post(
-            os.getenv(STORAGE_API),
+            os.getenv('STORAGE_API'),
             data=json.dumps(message, default=str)
         )
 
 schedule.every(period).seconds.do(get_data_from_api)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
