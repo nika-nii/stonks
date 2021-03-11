@@ -12,14 +12,6 @@ services:
       - influxdb:/var/lib/influxdb2
     env_file: .env
 
-  observersdb:
-    volumes:
-      -
-      #я не знаю что тут писать
-
-  usersdb:
-    #страшно вырубай
-
   storage:
     build: storage
     depends_on:
@@ -27,31 +19,35 @@ services:
         condition: service_healthy
     env_file: .env
     ports:
-      - 81:81
+      - 81:80
 
   filter:
     build: filter
     env_file: .env
+    volumes:
+      - filter_db:/var/www/app/database
     ports:
-      - 82:82
+      - 82:80
 
-  notify:
-    build: notify
+  notifier:
+    build: notifier
     env_file: .env
     ports:
-      - 83:83
+      - 83:80
 
   fetcher:
     build: fetcher
     env_file: .env
     ports:
-      - 84:84
+      - 84:80
 
   users:
     build: users
     env_file: .env
+    volumes:
+      - filter_db:/var/www/app/database
     ports:
-      - 85:85
+      - 85:80
 
 volumes:
   influxdb:
