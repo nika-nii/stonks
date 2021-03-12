@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 
 from database import crud, models
 from database.database import engine, SessionLocal
+import schemas
 
 
 class Message(BaseModel):
@@ -16,13 +17,14 @@ class Message(BaseModel):
     currency: str
 
 
-class Observer(BaseModel):
-    id: int
-    user_id: int
-    event: str
-    watch: int
-    currency: str
+# class Observer(BaseModel):
+#     id: int
+#     user_id: int
+#     event: str
+#     watch: int
+#     currency: str
 
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -33,9 +35,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
-
-models.Base.metadata.create_all(bind=engine)
 
 
 @app.post("/add")
@@ -58,7 +57,7 @@ async def send_value(message: Message, db: Session = Depends(get_db)):
 
 
 @app.post("/watch")
-async def add_observer(observer: Observer, db: Session = Depends(get_db)):
+async def add_observer(observer: schemas.ObserverCreate, db: Session = Depends(get_db)):
     db = crud.create_observer(db, observer)
     return db
 

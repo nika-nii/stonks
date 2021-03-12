@@ -4,9 +4,10 @@ from pydantic import BaseModel
 
 
 class ObserverBase(BaseModel):
+    id: int
     user_id: int
     event: str
-    watch: int
+    watch: float
     currency: str
 
 
