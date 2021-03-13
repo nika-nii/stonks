@@ -47,6 +47,12 @@ services:
       - filter_db:/var/www/app/db
     ports:
       - 85:80
+  
+  kabanchik:
+    build: kabanchik
+    depends_on:
+      - storage
+      - filter
 
 volumes:
   influxdb:
