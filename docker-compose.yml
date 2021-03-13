@@ -38,6 +38,8 @@ services:
   fetcher:
     build: fetcher
     env_file: fetcher.env
+    depends_on:
+      - storage
     ports:
       - 84:80
 

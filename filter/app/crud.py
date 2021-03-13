@@ -24,7 +24,11 @@ def get_observers(db: Session):
 
 
 def create_observer(db: Session, observer: schemas.ObserverCreate, user_id: int):
-    db_observer = models.Observers(**observer.dict(), user_id=user_id)
+    db_observer = models.Observers(
+        event=observer.event,
+        watch=observer.watch,
+        currency=observer.currency, 
+        user_id=user_id)
     db.add(db_observer)
     db.commit()
     db.refresh(db_observer)

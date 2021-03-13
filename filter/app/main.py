@@ -50,14 +50,19 @@ async def send_value(message: Message, db: Session = Depends(get_db)):
                 "currency": message.currency
             }
         }
-        r = requests.post('http://localhost:80/notify', data=json.dumps(notification, default=str))
+        r = requests.post('http://notifier/notify', data=json.dumps(notification, default=str))
         print(r)
     return "OK"
 
 
 @app.post("/watch")
 async def add_observer(observer: schemas.ObserverCreate, db: Session = Depends(get_db)):
-    db = crud.create_observer(db, observer)
+    r = requests.get("http://users/users/id")
+    if r.status_code == 200:
+        user_id = r.json()["id"]
+    import random
+    user_id = random.randint(1, 1000)
+    db = crud.create_observer(db, observer, user_id)
     return db
 
 
