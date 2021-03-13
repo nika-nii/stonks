@@ -25,7 +25,7 @@ services:
     build: filter
     env_file: filter.env
     volumes:
-      - filter_db:/var/www/app/database
+      - filter_db:/var/www/app/db
     ports:
       - 82:80
 
@@ -44,7 +44,7 @@ services:
   users:
     build: users
     volumes:
-      - filter_db:/var/www/app/database
+      - filter_db:/var/www/app/db
     ports:
       - 85:80
 

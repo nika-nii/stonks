@@ -97,4 +97,4 @@ async def get_latest(currency):
     for table in tables:
         for record in table.records:
             results.append({"time": record.get_time(), "value": record.get_value()})
-    return results
+    return results[0]

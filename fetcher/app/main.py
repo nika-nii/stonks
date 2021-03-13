@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import json
 import os
 import time
@@ -19,12 +19,15 @@ def get_data_from_api():
     r = requests.get(host)
     data = r.json()
     rates = data['rates']
-    date = datetime.strptime(rates['date'], "%Y-%m-%d")
+    date = datetime.strptime(data['date'], "%Y-%m-%d").date()
+    date = datetime.combine(date.today(), datetime.min.time())
+
+    print()
     for rate in rates.keys():
         message = {
             "value": rates[rate],
             "currency": rate,
-            "time": date
+            "time": date.isoformat()
         }
         requests.post(
             os.getenv('STORAGE_API'),

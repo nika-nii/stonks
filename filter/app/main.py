@@ -6,9 +6,8 @@ from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from database import crud, models
-from database.database import engine, SessionLocal
-import schemas
+import crud, models, schemas
+from database import engine, SessionLocal
 
 
 class Message(BaseModel):
