@@ -1,3 +1,6 @@
+import requests
+import os
+
 class UserGetter:
 
     def __init__(self, id):
@@ -5,13 +8,10 @@ class UserGetter:
         self._user = None
 
     def get_data(self):
-        # todo: get actual data from Users
-        self._user = {
-            'username': 'vasya',
-            'first_name': 'Вася',
-            'last_name': 'Курочкин',
-            'email': 'vasya@example.com'
-        }
+        host = os.getenv('USERS_HOST')
+        print(f"Requesting http://{host}/users/{self._id}")
+        r = requests.get(f'http://{host}/users/{self._id}')
+        self._user = r.json()
 
     def get_address(self):
         if self._user is None:

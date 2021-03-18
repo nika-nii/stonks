@@ -2,13 +2,20 @@ import datetime
 import json
 
 import requests
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Request
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 import crud, models, schemas
 from database import engine, SessionLocal
 
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
+
+users_host = os.getenv('USERS_HOST')
+notifier_host = os.getenv('NOTIFIER_HOST')
 
 class Message(BaseModel):
     time: datetime.datetime
@@ -50,18 +57,20 @@ async def send_value(message: Message, db: Session = Depends(get_db)):
                 "currency": message.currency
             }
         }
-        r = requests.post('http://notifier/notify', data=json.dumps(notification, default=str))
+        r = requests.post(f'http://{notifier_host}/notify', data=json.dumps(notification, default=str))
         print(r)
     return "OK"
 
 
 @app.post("/watch")
-async def add_observer(observer: schemas.ObserverCreate, db: Session = Depends(get_db)):
-    r = requests.get("http://users/users/id")
-    if r.status_code == 200:
-        user_id = r.json()["id"]
-    import random
-    user_id = random.randint(1, 1000)
+async def add_observer(observer: schemas.ObserverCreate, request: Request, db: Session = Depends(get_db)):
+    token = request.headers['Authorization']
+    print(token)
+    headers = {
+        'Authorization': token
+    }
+    r = requests.get(f'http://{users_host}/get_my_id')
+    user_id = r.json()["id"]
     db = crud.create_observer(db, observer, user_id)
     return db
 

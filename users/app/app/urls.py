@@ -22,7 +22,7 @@ from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
+router.register(r'user', views.UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,5 +31,6 @@ urlpatterns = [
     path('api-token-auth/', obtain_jwt_token),
     path('api-token-refresh/', refresh_jwt_token),
     path('api-token-verify/', verify_jwt_token),
+    path('schema/', SpectacularSwaggerView.as_view(), name='docs'),
     path('docs/', SpectacularSwaggerView.as_view(url_name='docs'), name='swagger-ui'),
 ]
