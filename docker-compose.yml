@@ -50,8 +50,8 @@ services:
     ports:
       - 85:80
   
-  kabanchik:
-    build: kabanchik
+  filter_loader:
+    build: filter_loader
     depends_on:
       - storage
       - filter
