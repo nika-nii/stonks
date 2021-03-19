@@ -36,6 +36,19 @@ class TimeValue(BaseModel):
 
 app = FastAPI()
 
+from fastapi.middleware.cors import CORSMiddleware
+
+origins = [
+    "*",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/add")
 async def add_value(value: Value):
@@ -91,19 +104,10 @@ async def get_latest(currency):
                         |> filter(fn: (r) => r["_measurement"] == "exchange") 
                         |> filter(fn: (r) => r["_field"] == "value")
                         |> limit(n:1)'''
-    print(query)
     tables = query_api.query(query)
-
-    print(tables)
-
     results = []
     for table in tables:
         for record in table.records:
             results.append({"time": record.get_time(), "value": record.get_value()})
-    
-    print(results)
-    
-    if len(results) == 0:
-        return []
 
     return results[0]

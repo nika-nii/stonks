@@ -2,3 +2,4 @@ django
 djangorestframework
 djangorestframework-jwt
 drf-spectacular
+django-cors-headers
