@@ -22,7 +22,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 def get_user_id(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return request.user.id
     else:
         raise PermissionDenied()
