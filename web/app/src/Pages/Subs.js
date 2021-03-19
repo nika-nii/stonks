@@ -36,9 +36,9 @@ export const Subs = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            {/*<Button variant="contained" color="primary" onClick={() => this.reRender("RUB")}>
+            <Button variant="contained" color="primary">
                 Добавить подиску
-            </Button>*/}
+            </Button>
         </Fragment>
     )
 }
