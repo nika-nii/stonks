@@ -7,38 +7,54 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import {Button, Container, TextField} from "@material-ui/core";
 
+var button_style = {
+    margin: "5px"
+}
+
+var in_column_style = {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "5px",
+    width: "500px"
+}
 export const Subs = () => {
     const classes = useStyles();
     return (
         <Fragment>
-            <h1>Subs page</h1>
+            <h1>Подписки</h1>
             <TableContainer component={Paper}>
                 <Table className={classes.table} size="small" aria-label="a dense table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Dessert (100g serving)</TableCell>
-                            <TableCell align="right">Calories</TableCell>
-                            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                            <TableCell>Валюта</TableCell>
+                            <TableCell align="right">Событие</TableCell>
+                            <TableCell align="right">Порог</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {rows.map((row) => (
-                            <TableRow key={row.name}>
+                            <TableRow key={row.val}>
                                 <TableCell component="th" scope="row">
-                                    {row.name}
+                                    {row.val}
                                 </TableCell>
-                                <TableCell align="right">{row.calories}</TableCell>
-                                <TableCell align="right">{row.fat}</TableCell>
-                                <TableCell align="right">{row.carbs}</TableCell>
-                                <TableCell align="right">{row.protein}</TableCell>
+                                <TableCell align="right">{row.event}</TableCell>
+                                <TableCell align="right">{row.watch}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
+            <div style={in_column_style}>
+                <span>Чтобы добавить подписку заполните поля снизу, если не заполните, то все крашнется к чертям</span>
+                <TextField id="filled-basic" label="email" />
+                <TextField id="filled-basic" label="password" />
+                <TextField id="filled-basic" label="login" />
+            </div>
+            <Button variant="contained" color="primary" style={button_style}>
+                Добавить подиску
+            </Button>
         </Fragment>
     )
 }
@@ -49,15 +65,13 @@ const useStyles = makeStyles({
     },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+function createData(val, event, watch) {
+    return {val, event, watch};
 }
 
 const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
+    createData('RUB', 'up', 6.0),
+    createData('GRI', 'up', 9.0),
+    createData('TEN', 'down', 16.0),
 ];
 
