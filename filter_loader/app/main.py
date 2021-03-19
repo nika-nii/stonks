@@ -13,6 +13,7 @@ host2 = "http://filter/add"
 
 def job():
     r = requests.get(f'{host1}currencies')
+    print(f'Currencies: {r.json()}')
     for cur in r.json():
         r = requests.get(f'{host1}latest/{cur}')
         data = r.json()
