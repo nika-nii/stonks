@@ -13,103 +13,54 @@ export class Home extends React.Component {
             y: 1
         },
     ]
-    data1 = [
-        {
-            x: 1,
-            y: 2
-        },
-        {
-            x: 2,
-            y: 4
-        },
-        {
-            x: 3,
-            y: 6
-        },
-        {
-            x: 4,
-            y: 8
-        },
-        {
-            x: 5,
-            y: 10
-        },
-    ]
-    data2 = [
-        {
-            x: 1,
-            y: 1
-        },
-        {
-            x: 2,
-            y: 2
-        },
-        {
-            x: 3,
-            y: 3
-        },
-        {
-            x: 4,
-            y: 4
-        },
-        {
-            x: 5,
-            y: 5
-        },
-    ]
-    data3 = [
-        {
-            x: 1,
-            y: 1
-        },
-        {
-            x: 2,
-            y: 2
-        },
-        {
-            x: 3,
-            y: 3
-        },
-        {
-            x: 4,
-            y: 4
-        },
-        {
-            x: 5,
-            y: 5
-        },
-    ]
+
     dataToShow = this.defaultData
 
+    state = {
+        currencies: [],
+        graph_data: []
+    }
+
     reRender(name){
-        switch(name){
-            case "RUB":
-                this.dataToShow = this.data1
-                break;
-            case "GRI":
-                this.dataToShow = this.data2
-                break;
-            case "TEN":
-                this.dataToShow = this.data3
-                break;
-        }
-        this.forceUpdate();
+        fetch(`http://localhost/storage/range/${name}`)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            this.setState(
+                {
+                    graph_data: data
+                }
+            )
+        })
     };
 
+    componentDidMount() {
+        fetch('http://localhost/storage/currencies')
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            this.setState(
+                {
+                    currencies: data
+                }
+            )
+        })
+    }
+
     render() {
+        console.log("Re-render")
+        const {currencies, graph_data} = this.state
+        const buttons = currencies.map((cur) => 
+            <Button variant="contained" className="m-1" color="primary" onClick={() => this.reRender(cur)} key={cur}>
+                {cur}
+            </Button>)
         return (
             <Fragment>
                 <h1>Home page</h1>
                 <Container>
-                    <Button variant="contained" color="primary" onClick={() => this.reRender("RUB")}>
-                        Рубль
-                    </Button>
-                    <Button variant="contained" color="primary" onClick={() => this.reRender("GRI")}>
-                        Гривна
-                    </Button>
-                    <Button variant="contained" color="primary" onClick={() => this.reRender("TEN")}>
-                        Тэньге
-                    </Button>
+                    {buttons}
                 </Container>
                 <Container>
                     <Grid>
@@ -117,11 +68,11 @@ export class Home extends React.Component {
                             <Paper>
                                 <div className="Chart">
                                     <h2 style={{textAlign: "center"}}>Stonks</h2>
-                                    <LineChart width={730} height={250} data={this.dataToShow}
+                                    <LineChart width={730} height={250} data={graph_data}
                                                margin={{top: 5, bottom: 5}}>
-                                        <XAxis dataKey="x"/>
-                                        <YAxis dataKey="y"/>
-                                        <Line type="monotone" dataKey="y" stroke="#8884d8"/>
+                                        <XAxis dataKey="time"/>
+                                        <YAxis dataKey="value"/>
+                                        <Line type="monotone" dataKey="value" stroke="#8884d8"/>
                                     </LineChart>
                                 </div>
                             </Paper>
