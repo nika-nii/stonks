@@ -7,8 +7,18 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {Button, Container} from "@material-ui/core";
+import {Button, Container, TextField} from "@material-ui/core";
 
+var button_style = {
+    margin: "5px"
+}
+
+var in_column_style = {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "5px",
+    width: "500px"
+}
 export const Subs = () => {
     const classes = useStyles();
     return (
@@ -36,7 +46,13 @@ export const Subs = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button variant="contained" color="primary">
+            <div style={in_column_style}>
+                <span>Чтобы добавить подписку заполните поля снизу, если не заполните, то все крашнется к чертям</span>
+                <TextField id="filled-basic" label="email" />
+                <TextField id="filled-basic" label="password" />
+                <TextField id="filled-basic" label="login" />
+            </div>
+            <Button variant="contained" color="primary" style={button_style}>
                 Добавить подиску
             </Button>
         </Fragment>

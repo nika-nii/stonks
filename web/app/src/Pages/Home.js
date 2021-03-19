@@ -111,14 +111,14 @@ export class Home extends React.Component {
                         Тэньге
                     </Button>
                 </Container>
-                <Container maxWidth="lg">
+                <Container>
                     <Grid>
-                        <Grid item xs={12} md={8} lg={9}>{/*параметры должны быть другие*/}
+                        <Grid item xs={12} md={8} lg={9}>
                             <Paper>
                                 <div className="Chart">
                                     <h2 style={{textAlign: "center"}}>Stonks</h2>
                                     <LineChart width={730} height={250} data={this.dataToShow}
-                                               margin={{top: 5, right: 30, left: 30, bottom: 5}}>
+                                               margin={{top: 5, bottom: 5}}>
                                         <XAxis dataKey="x"/>
                                         <YAxis dataKey="y"/>
                                         <Line type="monotone" dataKey="y" stroke="#8884d8"/>
