@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {TextField} from "@material-ui/core";
-
+import './Signup.css'
 class Signup extends Component {
     render() {
         return (
@@ -11,10 +11,7 @@ class Signup extends Component {
                 <TextField id="filled-basic" label="email" variant="filled" />
                 <TextField id="filled-basic" label="password" variant="filled" />
                 <TextField id="filled-basic" label="login" variant="filled" />
-                <div className='sign-up-form__text-links'>
-                    <span>Forgot Password</span>
-                    <span>Signup here</span>
-                </div>
+
             </form>
             </div>
         );

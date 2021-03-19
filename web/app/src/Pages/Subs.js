@@ -7,12 +7,13 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-//валюта, событие, порог
+import {Button, Container} from "@material-ui/core";
+
 export const Subs = () => {
     const classes = useStyles();
     return (
         <Fragment>
-            <h1>Subs page</h1>
+            <h1>Подписки</h1>
             <TableContainer component={Paper}>
                 <Table className={classes.table} size="small" aria-label="a dense table">
                     <TableHead>
@@ -35,6 +36,9 @@ export const Subs = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            {/*<Button variant="contained" color="primary" onClick={() => this.reRender("RUB")}>
+                Добавить подиску
+            </Button>*/}
         </Fragment>
     )
 }

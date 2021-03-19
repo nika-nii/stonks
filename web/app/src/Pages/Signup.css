@@ -1,0 +1,11 @@
+.sign-up {
+    grid-row: content-s/content-e;
+    grid-column: content-s/content-e;
+}
+
+.sign-up-form {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+
