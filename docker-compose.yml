@@ -54,6 +54,15 @@ services:
       - storage
       - filter
 
+  web:
+    build: web
+    ports:
+      - 80:80
+    depends_on:
+      - storage
+      - filter
+      - users
+
 volumes:
   influxdb:
   filter_db:
