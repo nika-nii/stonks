@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import {Button, TextField} from "@material-ui/core";
 import './Signup.css'
 
+var button_style = {
+    margin: "5px"
+}
+
 class Signup extends Component {
     render() {
         return (
@@ -10,7 +14,7 @@ class Signup extends Component {
                 <TextField id="filled-basic" label="email" />
                 <TextField id="filled-basic" label="password" />
                 <TextField id="filled-basic" label="login" />
-                <Button className="button-margin" variant="contained" color="primary">
+                <Button variant="contained" color="primary" style={button_style}>
                     Sign up
                 </Button>
             </form>
